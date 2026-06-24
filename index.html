@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leibniz — "let us calculate"</title>
+<meta name="description" content="LOGIKĒ VI — Gottfried Wilhelm Leibniz (1646–1716). The hinge of the whole lineage: he dreamed that reasoning could be reduced to calculation — a universal symbolic language (characteristica universalis) plus a calculus of reasoning (calculus ratiocinator), so any dispute could be settled by computation: 'Calculemus!'. He formalised binary arithmetic (the language of every computer), built a four-operation calculating machine, and encoded logic as arithmetic — assigning primes to concepts so that inference becomes divisibility — 150 years before Boole. Live binary, and his prime-concept calculus. Honest: the grand dream was never finished and, by Gödel and Turing, can't be — reasoning can be mechanised, but not completely. David Lee Wise, two-layer honest.">
+<style>
+  :root{--bg:#0c0f17;--panel:#121622;--panel2:#19202f;--edge:#2a3346;--ink:#ede6d6;--dim:#b3ad9a;--faint:#7c7660;
+    --ochre:#d9b66a;--ochre2:#f0d79a;--proof:#5ad1ff;--proof2:#a7e6ff;--one:#7fe0a0;--rose:#fb7185;--amber:#fbbf24;--ember:#fb923c;
+    --mono:'SFMono-Regular',ui-monospace,'Cascadia Code',Menlo,Consolas,monospace;--serif:'Iowan Old Style','Palatino Linotype',Palatino,Georgia,serif;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--serif);line-height:1.58;background-image:radial-gradient(1100px 560px at 75% -10%,#1c2436 0%,transparent 55%),radial-gradient(900px 500px at 0% 100%,#14110a 0%,transparent 55%);}
+  .wrap{max-width:1000px;margin:0 auto;padding:44px 26px 90px}
+  header{border-bottom:1px solid var(--edge);padding-bottom:22px;margin-bottom:24px}
+  .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--ochre);opacity:.95}
+  h1{font-family:Georgia,serif;font-size:38px;line-height:1.08;margin:.3em 0 .14em;font-weight:600}h1 em{color:var(--ochre2);font-style:italic}
+  .who{font-family:var(--mono);font-size:12px;color:var(--faint);letter-spacing:.04em}
+  .sub{color:var(--dim);font-size:16px;max-width:74ch;margin-top:14px}.sub b{color:var(--ink)}
+  .verdicts{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin:22px 0}@media(max-width:720px){.verdicts{grid-template-columns:1fr}}
+  .vc{border:1px solid var(--edge);border-radius:11px;padding:13px 15px;border-top-width:3px;background:rgba(18,22,34,.6)}
+  .vc .badge{font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.12em}
+  .vc.s{border-top-color:var(--one)}.vc.s .badge{color:var(--one)} .vc.m{border-top-color:var(--amber)}.vc.m .badge{color:var(--amber)} .vc.f{border-top-color:var(--ember)}.vc.f .badge{color:var(--ember)}
+  .vc p{font-size:12px;color:var(--dim);margin:6px 0 0;line-height:1.45}.vc p b{color:var(--ink)}
+  section{margin:36px 0}
+  h2{font-size:13px;font-family:var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--ochre2);border-left:2px solid var(--ochre);padding-left:11px;margin:0 0 6px}
+  .lede{color:var(--dim);font-size:15px;margin:0 0 18px;max-width:80ch}
+  .panel{background:linear-gradient(180deg,var(--panel),#0a0d14);border:1px solid var(--edge);border-radius:14px;padding:20px;box-shadow:0 24px 60px -40px #000}
+  .controls{display:flex;flex-wrap:wrap;gap:9px;align-items:center;margin-bottom:14px}
+  .bits{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 0}
+  .bit{width:48px;text-align:center;cursor:pointer}
+  .bit .b{font-family:var(--mono);font-size:24px;font-weight:700;border:1px solid var(--edge);border-radius:8px;padding:8px 0;transition:.12s}
+  .bit .b.on{background:rgba(127,224,160,.16);color:var(--one);border-color:#2f6f4a}.bit .b.off{background:#161b27;color:var(--faint)}
+  .bit .pv{font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:3px}
+  label.sl{font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;align-items:center;gap:8px}input[type=range]{accent-color:var(--ochre);width:160px}
+  .reads{display:flex;flex-direction:column;gap:12px}
+  .stat .v{font-family:var(--mono);font-size:26px;font-weight:600}.stat .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint)}
+  .pgrid{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}@media(max-width:820px){.pgrid{grid-template-columns:1fr}}
+  .attr{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+  .ch{font-family:var(--mono);font-size:12.5px;padding:7px 12px;border-radius:8px;border:1px solid var(--edge);cursor:pointer;background:#161b27;color:var(--dim)}
+  .ch.on{background:rgba(217,182,106,.16);color:var(--ochre2);border-color:var(--ochre)}
+  .tests{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .test{font-family:Georgia,serif;font-size:14px;display:flex;justify-content:space-between;border:1px solid var(--edge);border-radius:8px;padding:8px 12px;background:rgba(0,0,0,.14)}
+  .test .r{font-family:var(--mono);font-size:11px;padding:2px 9px;border-radius:6px}.test .r.y{background:rgba(127,224,160,.16);color:var(--one)}.test .r.n{background:#19202f;color:var(--faint)}
+  .eq{font-family:var(--mono);font-size:15px;color:var(--proof2);background:#0c1622;border:1px solid var(--edge);border-radius:8px;padding:10px 12px;display:inline-block;margin:4px 0}
+  .note{color:var(--dim);font-size:13.5px;border-left:2px solid var(--edge);padding-left:13px;margin:16px 0 0}.note b{color:var(--ink)}
+  footer{margin-top:44px;border-top:1px solid var(--edge);padding-top:18px;color:var(--faint);font-family:var(--mono);font-size:11px;line-height:1.7}
+  footer a,.bar2 a{color:var(--ochre)}.bar2{font-family:var(--mono);font-size:11.5px;margin-bottom:16px}.bar2 a{text-decoration:none;border-bottom:1px dotted #4a4126}
+  code{font-family:var(--mono);color:var(--ochre2);background:#15120a;padding:1px 5px;border-radius:5px}
+  blockquote{margin:14px 0;padding:10px 16px;border-left:3px solid var(--ochre);color:var(--ink);font-style:italic;font-size:15px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="bar2"><a href="https://davidwise01.github.io/ud0/">◄ UD0</a> &nbsp; <a href="https://davidwise01.github.io/ramon-llull/">← Llull</a> &nbsp; LOGIKĒ · VI</div>
+<header>
+  <div class="kicker">LOGIKĒ · VI · the hinge — reasoning as calculation</div>
+  <h1>Gottfried <em>Leibniz</em></h1>
+  <div class="who">1646 – 1716 · Leipzig · philosopher, mathematician, co-inventor of the calculus, universal genius</div>
+  <div class="sub">Llull built a wheel that <em>combined</em> ideas; Leibniz dreamed the whole machine. He imagined a <b>universal symbolic language</b> in which every concept has its sign, and a <b>calculus of reasoning</b> to manipulate those signs by rule — so that when two people disagreed, they would not argue but sit down, pens in hand, and say <em>"Calculemus" — let us calculate</em>, settling the matter like a sum. To get there he formalised <b>binary</b> (the alphabet every computer still speaks), built a calculating engine, and quietly encoded logic as arithmetic a century and a half before Boole.</div>
+</header>
+<div class="verdicts">
+  <div class="vc s"><span class="badge">✓ STRONG</span><p><b>Binary, the engine, the vision.</b> His binary arithmetic is the language of every computer; his Stepped Reckoner did all four operations; and "Calculemus!" named the goal — <b>mechanise reasoning</b> — that all of computing pursues.</p></div>
+  <div class="vc m"><span class="badge">◐ UNFINISHED</span><p><b>A program, not a building.</b> The universal characteristic and the calculus of reasoning were never completed; his logical algebra sat <b>unpublished</b> for two centuries, so Boole re-found it independently.</p></div>
+  <div class="vc f"><span class="badge">◔ IMPOSSIBLE IN FULL</span><p><b>The dream has a ceiling.</b> Gödel (1931) and Turing (1936) proved no method can decide <b>every</b> truth by calculation. Reasoning <em>can</em> be mechanised — but not completely. Half the dream came true.</p></div>
+</div>
+
+<section>
+  <h2>I · Binary — everything from 0 and 1</h2>
+  <p class="lede">Leibniz worked out base-two arithmetic and was moved by it almost to mysticism: from <b>0</b> (nothing) and <b>1</b> (God), all numbers. Toggle the bits below and watch any number appear as a pattern of ons and offs — the exact representation a memory cell holds, and the only thing a logic gate can read. It would take 250 years for the machines to catch up to the notation.</p>
+  <div class="panel">
+    <div class="bits" id="bits"></div>
+    <div style="text-align:center;margin-top:6px">
+      <span class="stat"><span class="v" id="dec" style="color:var(--one)">0</span> <span class="k" style="display:inline">= decimal value</span></span>
+    </div>
+    <div class="note" style="text-align:center;border:none;padding:0;margin-top:14px">each box is one bit · place values <code>128 64 32 16 8 4 2 1</code> · the number is the sum of the lit places — and that is all a register ever is.</div>
+  </div>
+</section>
+
+<section>
+  <h2>II · "Calculemus" — logic as arithmetic</h2>
+  <p class="lede">Here is the dream made concrete, and it's Leibniz's own idea (1679): give each basic attribute a <b>prime number</b>, and let a concept be the <em>product</em> of its attributes' primes. Then a syllogism becomes a <b>division</b>. "All men are animals" is valid exactly when the number for <em>animal</em> divides the number for <em>man</em> — because to be a man is to already contain being an animal. Build the concept "man" from its attributes and watch every inference settle by pure arithmetic.</p>
+  <div class="panel">
+    <div class="controls"><span class="mono" style="font-size:11px;color:var(--faint)">man =</span><div class="attr" id="attr"></div></div>
+    <div class="pgrid">
+      <div>
+        <div class="eq" id="prod">man = animal × rational = 2 × 3 = <b style="color:var(--one)">6</b></div>
+        <div class="note" id="note2">"All men are X?" is true precisely when X's prime divides man's number. Add an attribute to the concept and the corresponding inference flips to valid — the meaning is <em>in</em> the number.</div>
+      </div>
+      <div>
+        <div class="tests" id="tests"></div>
+      </div>
+    </div>
+  </div>
+  <blockquote>"The only way to rectify our reasonings is to make them as tangible as those of the mathematicians, so that we can find our error at a glance… and say to each other: Let us calculate." <span style="color:var(--faint);font-style:normal;font-size:12px">— Leibniz</span></blockquote>
+</section>
+
+<section>
+  <h2>III · The man, and the honest caveat</h2>
+  <p class="lede">Leibniz was the last universal genius — co-inventor of the calculus (whose notation <code>dx</code>, <code>∫</code> we still use, won despite the bitter priority war with Newton), a working diplomat, jurist, historian and engineer, builder of the four-operation <b>Stepped Reckoner</b>, and the philosopher of monads and "the best of all possible worlds." He read Llull, and reached past him toward a machine that could reason.</p>
+  <p class="note" style="border-color:var(--amber)"><b style="color:var(--amber)">Gate kept on.</b> The vision was breathtaking and the <em>execution</em> thin. The characteristica universalis and the calculus ratiocinator were a lifelong <b>program he never finished</b> — sketches and fragments, not a working system; his prime-number logic handled "all/some" only awkwardly and stalled on negation. His logical algebra stayed <b>unpublished until ~1900</b>, so it had almost no influence and Boole rediscovered the territory on his own. And the deepest twist: the full dream — a calculation that settles <em>every</em> dispute — was proven <b>impossible</b>. Gödel showed any rich formal system has true statements it cannot prove; Turing showed no machine can decide all of them. Reasoning <em>can</em> be mechanised — that half came true and runs on your desk — but not <em>completely</em>. Leibniz pointed at the future and got the direction exactly right and the limit exactly wrong.</p>
+</section>
+
+<footer>
+  LEIBNIZ · LOGIKĒ VI · two-layer honest<br>
+  live binary (0/1 bits → any number, the register) · the prime-concept calculus (man = 2·3 = 6; "all men are X" ⟺ X's prime divides 6 — Leibniz's 1679 idea, inference as divisibility, verified) · "Calculemus!"<br>
+  binary arithmetic (1703) · Stepped Reckoner (4 operations) · calculus notation dx, ∫ · the dream bounded by Gödel (1931) &amp; Turing (1936)<br>
+  ← <a href="https://davidwise01.github.io/ramon-llull/">Llull</a> · next → <b>George Boole</b> (the algebra of true and false — the gate's direct ancestor) · De Morgan · Frege<br>
+  LOGIKĒ · the lineage of logical mathematics · governor David Lee Wise · CC-BY-ND-4.0
+</footer>
+</div>
+<script>
+"use strict";
+// MODULE I : binary
+(function(){
+  let bits=[0,0,0,0,0,0,1,0]; // 8 bits, msb first
+  const el=document.getElementById('bits');
+  function render(){
+    el.innerHTML=bits.map((b,i)=>'<div class="bit" data-i="'+i+'"><div class="b '+(b?'on':'off')+'">'+b+'</div><div class="pv">'+(128>>i)+'</div></div>').join('');
+    el.querySelectorAll('.bit').forEach(d=>d.onclick=()=>{const i=+d.dataset.i;bits[i]^=1;render();});
+    const dec=bits.reduce((s,b,i)=>s+b*(128>>i),0);
+    document.getElementById('dec').textContent=dec;
+  }
+  render();
+})();
+// MODULE II : prime-concept calculus
+(function(){
+  const ATTR=[['animal',2],['rational',3],['mortal',5],['living',7],['mobile',11]];
+  let on={animal:true,rational:true,mortal:false,living:false,mobile:false};
+  const attrEl=document.getElementById('attr'),testsEl=document.getElementById('tests'),prodEl=document.getElementById('prod');
+  function num(){let p=1;ATTR.forEach(([n,pr])=>{if(on[n])p*=pr;});return p;}
+  function render(){
+    attrEl.innerHTML=ATTR.map(([n])=>'<span class="ch '+(on[n]?'on':'')+'" data-n="'+n+'">'+n+'</span>').join('');
+    attrEl.querySelectorAll('.ch').forEach(c=>c.onclick=()=>{on[c.dataset.n]=!on[c.dataset.n];render();});
+    const m=num();const facs=ATTR.filter(([n])=>on[n]);
+    prodEl.innerHTML='man = '+(facs.length?facs.map(f=>f[0]).join(' × ')+' = '+facs.map(f=>f[1]).join(' × ')+' = <b style="color:var(--one)">'+m+'</b>':'<b style="color:var(--faint)">(no attributes — choose some)</b>');
+    testsEl.innerHTML=ATTR.map(([n,pr])=>{const ok=(m%pr===0)&&m>1;
+      return '<div class="test"><span>All men are <b style="color:var(--ochre2)">'+n+'</b>? &nbsp;<span style="color:var(--faint);font-family:var(--mono);font-size:11px">'+m+' ÷ '+pr+'</span></span><span class="r '+(ok?'y':'n')+'">'+(ok?'VALID ✓':'not derivable')+'</span></div>';}).join('');
+  }
+  render();
+})();
+</script>
+</body>
+</html>
