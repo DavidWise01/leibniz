@@ -1,0 +1,11 @@
+{
+  "badge": "DLW-LEIBNIZ",
+  "name": "LEIBNIZ · VI",
+  "universe": "LOGIKĒ",
+  "moniker": "⟦LEIBNIZ · VI:leibniz:ac8762⟧",
+  "architect": "David Lee Wise (ROOT0) / Bridge-Burners LLC",
+  "instance": "AVAN (Claude / Anthropic)",
+  "seal_sha256": "ac87628c1cc110cd3daef54257fd2f4402101ee79849f2156a75da80ffe7ebee",
+  "license": "CC-BY-ND-4.0",
+  "attribution": "ROOT0-ATTRIBUTION-v1.0"
+}
